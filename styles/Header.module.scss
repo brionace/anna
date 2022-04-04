@@ -1,0 +1,45 @@
+.header{
+    position: sticky;
+    top: 0;
+    background-color: $body-bgcolor;
+    z-index: 1;
+}
+.container{
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    max-width: none;
+
+    a {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}
+
+.toggle{
+    @media (min-width: 768px) {
+        display: none;
+    }
+}
+
+.nav{
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+
+    @media (max-width: 767px) {
+        display: none;
+    }
+}
+
+.shownav{
+    position: fixed;
+    top: 50px;
+    right: 15px;
+    background: aquamarine;
+    padding: 15px;
+    z-index: 1;
+    > a{
+        display: block;
+    }
+}

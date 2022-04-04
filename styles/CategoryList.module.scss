@@ -1,0 +1,45 @@
+.categorylist {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+
+    &::before {
+        content: "Portfolio";
+    }
+
+    // @media (min-width: 768px) {
+    //     display: flex;
+    //     justify-content: space-between;
+    // }
+
+    .list {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        &:hover {
+            > ul {
+                display: block !important;
+            }
+        }
+
+        ul {
+            display: none;
+            position: absolute;
+            right: 0;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            text-align: right;
+            z-index: 9;
+
+            @media (max-width: 767px) {
+                text-align: right;
+            }
+
+            li {
+                margin: 15px 0;
+            }
+        }
+    }
+}

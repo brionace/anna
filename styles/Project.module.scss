@@ -1,0 +1,92 @@
+.card {
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid $grey-color;
+    border-radius: 3px;
+    background-color: white;
+    transition: color 0.15s ease, border-color 0.15s ease;
+    position: relative;
+    overflow: hidden;
+
+    h3 {
+        padding: 0 15px;
+    }
+}
+
+.bigup {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $grey-color-translucent;
+
+    > * {
+        width: 100vw;
+        height: 90vh;
+        overflow: auto;
+        @media (min-width: 768px) {
+            width: 60vw;
+        }
+        figure {
+            button {
+                position: fixed;
+                top: 1%;
+                right: 1%;
+                z-index: 1;
+            }
+            span{
+                position: fixed !important;
+            }
+        }
+        }
+}
+
+.figure {
+    position: relative;
+    padding-top: 100%;
+    background-color: $grey-color;
+    margin: 0;
+    overflow: hidden;
+
+    &:hover {
+        .nav {
+            opacity: 1;
+        }
+    }
+
+    img {
+        // animation: 0.3s ease-in 0s 1 normal forwards;
+        // position: absolute;
+        // top: 0;
+        min-width: 100%;
+        min-height: 100%;
+        object-fit: cover;
+    }
+
+    .nav {
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        color: white;
+        z-index: 1;
+        &:nth-of-type(2){
+            left: auto;
+            right: 0;
+        }
+    }
+    .carousel {
+        display: flex;
+        transition: 1s ease-in-out all;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+    }
+}
