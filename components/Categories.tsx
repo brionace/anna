@@ -19,21 +19,31 @@ type CommonInnerType = {
     }
 }
 
+type NewCat = {
+    name: string
+    slug: string | unknown
+    images: {
+        data: [
+            CommonInnerType
+        ][]
+    }
+}
+
 type CategoriesType = {
     categories?: CommonInnerType,
     portfolio?: CommonInnerType
 }
 
 export default function Categories({ categories, portfolio }: CategoriesType) {
-    const [allcategories, setAllCategories] = useState<[]>([])
+    const [allcategories, setAllCategories] = useState<NewCat[]>([])
 
     useEffect(() => {
         fetchCategories()
     }, [])
 
     async function fetchCategories() {
-        let ids: number[] = []
-        let finale: {}[] = []
+        const ids: number[] = []
+        const finale: NewCat[] = []
 
         //fetch categories
         const categories = await getCategories()
@@ -63,8 +73,9 @@ export default function Categories({ categories, portfolio }: CategoriesType) {
         setAllCategories(finale)
     }
 
-    const showCategories = allcategories.map((category: Record<string, Record<string, string>>, idx: number) => {
-        const images = [category.images.data].map((image, idx) => {
+    const showCategories = allcategories.map((category: NewCat, idx: number) => {
+        console.log(category)
+        const images = category.images.data.map((image, idx) => {
             return <img key={idx} src={`${CONSTANTS.ADMIN_URL}${image.attributes.url}`} alt='' />
         })
 
