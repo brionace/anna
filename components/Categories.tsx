@@ -30,7 +30,7 @@ export default function Categories({ categories, portfolio }: CategoriesType) {
         categories.data.forEach((category: any) => {
             const catId = category.id
 
-            portfolio.data.forEach(project => {
+            portfolio.data.forEach((project: any) => {
                 if (!ids.includes(catId)) {
                     if (project.attributes.categories.data.some((e: number) => e.id === catId)) {
                         finale.push(
