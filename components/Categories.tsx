@@ -5,9 +5,23 @@ import styles from '../styles/Categories.module.scss'
 import { getCategories, getPortfolio, CONSTANTS } from '../utils/lib'
 import { AnyRecord } from 'dns'
 
+type CommonInnerType = {
+    id: number,
+    attributes: {
+        categories: {data: []}
+        createdAt: string
+        description: string
+        images: {data: []}
+        name: string
+        slug?: string
+        publishedAt: string
+        updatedAt: string
+    }
+}
+
 type CategoriesType = {
-    categories?: Record<string, Record<string, Record<string, string>>>,
-    portfolio?: Record<string, Record<string, Record<string, string>>>
+    categories?: CommonInnerType,
+    portfolio?: CommonInnerType
 }
 
 export default function Categories({ categories, portfolio }: CategoriesType) {
@@ -18,8 +32,8 @@ export default function Categories({ categories, portfolio }: CategoriesType) {
     }, [])
 
     async function fetchCategories() {
-        let ids: [] = []
-        let finale: [] = []
+        let ids: number[] = []
+        let finale: {}[] = []
 
         //fetch categories
         const categories = await getCategories()
@@ -27,12 +41,12 @@ export default function Categories({ categories, portfolio }: CategoriesType) {
         // then attach images first image from projects
         const portfolio = await getPortfolio()
 
-        categories.data.forEach((category: Record<string, unknown>) => {
-            const catId: number = Number(category.id)
+        categories.data.forEach((category: CommonInnerType) => {
+            const catId: number = category.id
 
-            portfolio.data.forEach((project: Record<string, unknown>) => {
+            portfolio.data.forEach((project: CommonInnerType) => {
                 if (!ids.includes(catId)) {
-                    if (project.attributes.categories.data.some((e: number) => e.id === catId)) {
+                    if (project.attributes.categories.data.some((e: CommonInnerType) => e.id === catId)) {
                         finale.push(
                             {
                                 'name': category.attributes.name,
@@ -50,7 +64,7 @@ export default function Categories({ categories, portfolio }: CategoriesType) {
     }
 
     const showCategories = allcategories.map((category: Record<string, Record<string, string>>, idx: number) => {
-        const images = category.images.data.map((image, idx) => {
+        const images = [category.images.data].map((image, idx) => {
             return <img key={idx} src={`${CONSTANTS.ADMIN_URL}${image.attributes.url}`} alt='' />
         })
 
