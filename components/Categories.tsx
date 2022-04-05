@@ -27,7 +27,7 @@ export default function Categories({ categories, portfolio }: CategoriesType) {
         const portfolio = await getPortfolio()
 
         categories.data.forEach((category: unknown) => {
-            const catId: unknown = category.id as string
+            const catId: number = category.id as number
 
             portfolio.data.forEach(project => {
                 if (!ids.includes(catId)) {
