@@ -29,7 +29,7 @@ export default function Categories({ categories, portfolio }: CategoriesType) {
         categories.data.forEach((category: unknown) => {
             let catId: number
 
-            if (typeof ecatId === 'string' && catId !== null) {
+            if (typeof catId === 'string' && catId !== null) {
                 catId = parseInt(category.id)
             } else {
                 catId = parseInt(category.id)
