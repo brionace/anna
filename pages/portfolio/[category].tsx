@@ -48,7 +48,7 @@ const Category: NextPage<PortfolioType> = ({ projects, categories }) => {
 
           <ProjectList>
           {[projects.data].map((project: unknown, idx: number) => {
-            const images = project[0].attributes.images ? project[0].attributes.images : ''
+            const images: unknown = project[0].attributes.images ? project[0].attributes.images : ''
             return (
                 <Project key={idx} name={project[0].attributes.name} images={images} />
             )
