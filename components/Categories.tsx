@@ -18,8 +18,8 @@ export default function Categories({ categories, portfolio }: CategoriesType) {
     }, [])
 
     async function fetchCategories() {
-        let ids: unknown = []
-        let finale: unknown = []
+        let ids: [] = []
+        let finale: [] = []
 
         //fetch categories
         const categories = await getCategories()
