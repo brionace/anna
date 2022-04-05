@@ -26,7 +26,7 @@ export default function Categories({ categories, portfolio }: CategoriesType) {
         // then attach images first image from projects
         const portfolio = await getPortfolio()
 
-        categories.data.forEach((category: unknown) => {
+        categories.data.forEach((category) => {
             const catId: number = category.id as number
 
             portfolio.data.forEach(project => {
