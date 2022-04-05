@@ -17,8 +17,8 @@ export default function Categories({ categories, portfolio }: CategoriesType) {
     }, [])
 
     async function fetchCategories() {
-        let ids:unknown = []
-        let finale:unknown = []
+        let ids: unknown = []
+        let finale: unknown = []
 
         //fetch categories
         const categories = await getCategories()
@@ -27,7 +27,14 @@ export default function Categories({ categories, portfolio }: CategoriesType) {
         const portfolio = await getPortfolio()
 
         categories.data.forEach((category: unknown) => {
-            const catId:number = parseInt(category.id)
+            let catId: number = category.id
+
+            if (typeof ecatIdrr === 'string' && catId !== null) {
+                catId = parseInt(category.id)
+            } else {
+                catId = parseInt(category.id)
+            }
+
             portfolio.data.forEach(project => {
                 if (!ids.includes(catId)) {
                     if (project.attributes.categories.data.some((e: number) => e.id === catId)) {
