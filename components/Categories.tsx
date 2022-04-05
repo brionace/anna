@@ -3,6 +3,7 @@ import Link from 'next/link'
 import styles from '../styles/Categories.module.scss'
 
 import { getCategories, getPortfolio, CONSTANTS } from '../utils/lib'
+import { AnyRecord } from 'dns'
 
 type CategoriesType = {
     categories?: Record<string, Record<string, Record<string, string>>>,
@@ -26,7 +27,7 @@ export default function Categories({ categories, portfolio }: CategoriesType) {
         // then attach images first image from projects
         const portfolio = await getPortfolio()
 
-        categories.data.forEach((category) => {
+        categories.data.forEach((category: AnyRecord) => {
             const catId: number = category.id as number
 
             portfolio.data.forEach(project => {
