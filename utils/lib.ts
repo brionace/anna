@@ -53,7 +53,29 @@ export type AttributesProps = {
     categories?: {}
     createdAt: string
     description?: string
-    images?: {data: []}
+    images?: {
+        data: {
+            id: number
+            attributes: {
+                alternativeText: string
+                caption: string
+                createdAt: string
+                ext: string
+                formats: { thumbnail: {}, large: {}, medium: {}, small: {} }
+                hash: string
+                height: number
+                mime: string
+                name: string
+                previewUrl: null
+                provider: string
+                provider_metadata: null
+                size: Float32Array
+                updatedAt: string
+                url: string
+                width: number
+            }
+        }[]
+    }
     name?: string
     slug?: string
     publishedAt: string

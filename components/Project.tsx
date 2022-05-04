@@ -8,12 +8,21 @@ interface ProjectType {
     project: DataType
 }
 
-export default function Project({ project }: ProjectType) {
+export default function Project({ project }: ProjectType ) {
     const [large, setLarge] = useState(false)
     const { name, images } = project.attributes
 
+    // @ts-ignore
+    const image_url = images.data[0].attributes.url
     // const imagelist = images?.data.map(image => {
-    //     return <img key={image.id} src={`${CONSTANTS.ADMIN_URL}${image.attributes.url}`} alt='' onClick={doSetLarge} />
+    //     return (
+    //         <Image
+    //             key={image.id}
+    //             src={`${CONSTANTS.ADMIN_URL}${image.attributes.url}`}
+    //             alt=""
+    //             layout="fill"
+    //         />
+    //     )
     // })
 
     return (
@@ -26,12 +35,7 @@ export default function Project({ project }: ProjectType) {
                     <div className={`${styles.carousel} carousel`}>
                         {imagelist}
                     </div> */}
-                    {/* <img src={`${CONSTANTS.ADMIN_URL}${images?.data[0].attributes.url}`} alt='' /> */}
-                    <Image
-                        src={`${CONSTANTS.ADMIN_URL}${images?.data[0].attributes.url}`}
-                        alt=""
-                        layout="fill"
-                    />
+                    <img src={`${CONSTANTS.ADMIN_URL}${image_url}`} alt='' />
                 </figure>
                 <h3>{name}</h3>
             </div>
