@@ -11,7 +11,8 @@ export default function ProjectList({ projects }: ProjectListProps) {
 
     return (
         <div className={styles.projectlist}>
-            {data.map(project => <Project key={project.id} project={project} />)}
+            {// @ts-ignore
+            data.map(project => <Project key={project.id} project={project} />)}
         </div>
 
     )
