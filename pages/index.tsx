@@ -6,28 +6,13 @@ import Categories from '../components/Categories'
 
 import styles from '../styles/Pages.module.scss'
 
-import { getPage } from '../utils/lib'
+import { getPage, DataMetaType } from '../utils/lib'
 
-type PageTypes = {
-  page: Record<string, Record<string, Record<string, Record<string, string>>>>
+interface HomeProps {
+  page: DataMetaType
 }
 
-const Home: NextPage<PageTypes> = ({ page }) => {
-
-  // if (!page.data){
-  //   return 'Page load'
-  // }
-
-  const hero = () => {
-    return (
-      <section>
-        <div className="container">
-          <p className='h1'>{page.data.attributes.description}</p>
-        </div>
-      </section>
-    )
-  }
-
+const Home: NextPage<HomeProps> = ({ page }) => {
 
   return (
     <>
@@ -40,11 +25,13 @@ const Home: NextPage<PageTypes> = ({ page }) => {
         <h1 style={{ display: "none" }}>
           {`Welcome to Anna Paton Studios`}
         </h1>
-        
-        {hero()}
-        
-        <Categories />
-      
+
+        <section>
+          <div className="container">
+            <p className='h1'>{page.data.attributes.description}</p>
+          </div>
+        </section>
+
       </main>
 
       <Footer />

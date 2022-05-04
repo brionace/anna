@@ -26,7 +26,7 @@ export async function getCategories() {
 }
 
 // Get all Portfolio
-export async function getPortfolio() {
+export async function getWork() {
     // const query = qs.stringify({
     //     filters: {
     //       categories: {
@@ -47,4 +47,25 @@ export async function getPortfolio() {
     //   }) http://localhost:1337/api/projects?populate=*
     const res = await axios.get(`${ADMIN_API}/projects?populate=*`)
     return res.data
+}
+
+export type AttributesProps = {
+    categories?: {}
+    createdAt: string
+    description?: string
+    images?: {data: []}
+    name?: string
+    slug?: string
+    publishedAt: string
+    updatedAt: string
+}
+
+export type DataType = {
+    id: number,
+    attributes: AttributesProps
+}
+
+export type DataMetaType = {
+    data: DataType
+    meta: {}
 }

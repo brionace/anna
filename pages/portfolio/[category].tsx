@@ -6,31 +6,25 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import styles from '../../styles/Pages.module.scss'
 
-import { getPortfolio, getCategories, CONSTANTS } from '../../utils/lib'
+import { getWork, getCategories, DataMetaType, DataType } from '../../utils/lib'
 import Project from '../../components/Project'
 import ProjectList from '../../components/ProjectList'
 import CategoryList from '../../components/CategoryList'
 
-type PortfolioType = {
-  projects: Record<string, Record<string, Record<string, string>>>
-  categories: Record<string, Record<string, Record<string, string>>>
+interface PortfolioTypes {
+  projects: DataMetaType
+  categories: DataType[]
 }
 
-const Category: NextPage<PortfolioType> = ({ projects, categories }) => {
-  const router = useRouter()
-  const [currentCategory, setCurrentCategory] = useState<unknown>({})
-  //if (!projects.data) return <p>Nothing available</p>
-  
-  // Pick the current category
-  useEffect(()=>{
-    for (const slug in categories.data){
-      if(categories.data[slug].attributes.slug === router.query.category){
-        return setCurrentCategory(categories.data[slug])
-      }
-    }
-  },[])
+const Category: NextPage<PortfolioTypes> = ({ projects, categories }) => {
+  const { query } = useRouter();
+  const currentCategory = categories.find((category: DataType) => {
 
-  const name = (currentCategory.attributes !== undefined) ? currentCategory.attributes.name : ''
+    if(category.attributes.slug !== undefined || query.category !== undefined){
+      return category.attributes.slug?.toLowerCase() === query.category
+    }
+    
+  });
 
   return (
     <>
@@ -42,9 +36,9 @@ const Category: NextPage<PortfolioType> = ({ projects, categories }) => {
       <main className={styles.contents}>
         <div className='container'>
           
-          <h1 className="displaynone">{name}</h1>
+          <h1 className="displaynone">{currentCategory?.attributes.name}</h1>
           
-          <CategoryList category={currentCategory} list={categories.data} />
+          <CategoryList category={currentCategory} categories={categories} />
 
           <ProjectList>
           {[projects.data].map((project: unknown, idx: number) => {
@@ -59,6 +53,7 @@ const Category: NextPage<PortfolioType> = ({ projects, categories }) => {
       </main>
 
       <Footer />
+
     </>
   )
 }
@@ -66,13 +61,13 @@ const Category: NextPage<PortfolioType> = ({ projects, categories }) => {
 export default Category
 
 export async function getServerSideProps() {
-  const projects = await getPortfolio()
+  const projects = await getWork()
   const categories = await getCategories()
 
   return {
     props: {
       projects: JSON.parse(JSON.stringify(projects)),
-      categories: JSON.parse(JSON.stringify(categories))
+      categories: JSON.parse(JSON.stringify(categories.data))
     }
   }
 }

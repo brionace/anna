@@ -5,17 +5,16 @@ import Footer from '../components/Footer'
 import Project from '../components/Project'
 import ProjectList from '../components/ProjectList'
 import CategoryList from '../components/CategoryList'
-import { getPortfolio, getCategories } from '../utils/lib'
+import { getWork, getCategories, DataMetaType, DataType } from '../utils/lib'
 
 import styles from '../styles/Pages.module.scss'
 
-type PortfolioType = {
-  projects: Record<string, Record<string, Record<string, string>>>
-  categories: Record<string, Record<string, Record<string, string>>>
+type PortfolioTypes = {
+  projects: DataMetaType
+  categories: DataMetaType
 }
 
-const Portfolio: NextPage<PortfolioType> = ({ projects, categories }) => {
-  if (!projects.data || !categories.data) return false
+const Portfolio: NextPage<PortfolioTypes> = ({ projects, categories }) => {
 
   return (
     <>
@@ -26,21 +25,9 @@ const Portfolio: NextPage<PortfolioType> = ({ projects, categories }) => {
 
       <main className={styles.contents}>
         <div className='container'>
-          <h1 className='displaynone'>Portfolio</h1>
+          <h1>Portfolio</h1>
 
-          <CategoryList list={categories.data} />
-
-          <ProjectList>
-            {[projects.data].map((project: unknown) => {
-              return project.map(p => {
-                const images = p.attributes.images ? p.attributes.images : ''
-
-                return (
-                  <Project key={p.id} name={p.attributes.name} images={images} />
-                )
-              })
-            })}
-          </ProjectList>
+          <ProjectList projects={projects} />
 
         </div>
       </main>
@@ -53,7 +40,7 @@ const Portfolio: NextPage<PortfolioType> = ({ projects, categories }) => {
 export default Portfolio
 
 export async function getServerSideProps() {
-  const projects = await getPortfolio()
+  const projects = await getWork()
   const categories = await getCategories()
 
   return {

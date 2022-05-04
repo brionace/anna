@@ -4,34 +4,22 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import styles from '../styles/Pages.module.scss'
 
-import { getPage } from '../utils/lib'
+import { getPage, DataMetaType } from '../utils/lib'
 
-type Page = {
-    page: Record<string, Record<string, Record<string, string>>>
+type ContactTypes = {
+    page: DataMetaType
 }
 
-const Contact: NextPage<Page> = ({ page }) => {
+const Contact: NextPage<ContactTypes> = ({ page }) => {
 
     const description = () => {
-        if (!page.data.attributes.description) return
-        const description = page.data.attributes.description
         const email = page.data.attributes.email
         return (
             <>
-                <p>{description}</p>
+                <p>{page.data.attributes.description}</p>
                 <p><a href={`mailto:${email}`}>{`Email: ${email}`}</a></p>
             </>
         )
-    }
-
-    const content = () => {
-        // if(!page.page.data.attributes.description) return
-        // const description = page.page.data.attributes.description
-        // return (
-        //   <section className={styles.grid}>
-        //       <div className='container'></div>
-        //     </section>
-        // )
     }
 
     return (

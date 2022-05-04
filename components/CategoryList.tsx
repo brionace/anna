@@ -1,22 +1,24 @@
+import { Attributes } from 'react'
 import styles from '../styles/CategoryList.module.scss'
+import { DataType } from '../utils/lib'
 
-export default function CategoryList({ category, list }: unknown) {
-    if (!list.length) return false
+type CategoryListTypes = {
+    categories: DataType[]
+  }
 
-    const categories = list.map((category) => {
-        return (
-            <li key={category.id}>
-                    <a href={`/portfolio/${category.attributes.slug}`}>{category.attributes.name}</a>
-            </li>
-        )
-    })
+export default function CategoryList({ categories }: CategoryListTypes)  {
 
     return (
         <div className={styles.categorylist}>
             <div className={styles.list}>
-                <span>{(category && category.attributes) ? category.attributes.name : 'All'}</span>
                 <ul>
-                    {categories}
+                    {categories.map((category: DataType, idx: number) => {
+                        return (
+                            <li key={idx}>
+                                <a href={`/portfolio/${category.attributes.slug}`}>{category.attributes.name}</a>
+                            </li>
+                        )
+                    })}
                 </ul>
             </div>
         </div>
