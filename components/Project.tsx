@@ -8,7 +8,7 @@ interface ProjectType {
     project: DataType
 }
 
-export default function Project({ project }: ProjectType ) {
+export default function Project({ project }: ProjectType) {
     const [large, setLarge] = useState(false)
     const { name, images } = project.attributes
 
