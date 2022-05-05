@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import Hat from '../components/Hat'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import Categories from '../components/Categories'
 
 import styles from '../styles/Pages.module.scss'
 
