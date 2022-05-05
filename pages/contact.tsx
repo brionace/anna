@@ -13,6 +13,7 @@ type ContactTypes = {
 const Contact: NextPage<ContactTypes> = ({ page }) => {
 
     const description = () => {
+        // @ts-ignore
         const email = page.data.attributes.email
         return (
             <>
